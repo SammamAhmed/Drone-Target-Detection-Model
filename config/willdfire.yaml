@@ -1,0 +1,44 @@
+wildfire_detection:
+  # Detection classes to look for
+  target_classes:
+    - fire
+    - smoke
+    - flame
+
+  # Alert thresholds
+  confidence_threshold: 0.35 # Minimum confidence for detection
+  alert_threshold: 0.6 # High confidence threshold for alerts
+  critical_threshold: 0.8 # Critical alert threshold
+
+  # Alert settings
+  min_consecutive_detections: 3 # Require multiple frames to confirm fire
+  alert_cooldown_seconds: 5 # Minimum time between repeated alerts
+
+  # Detection zones (optional - for future use)
+  zones:
+    high_risk:
+      name: "High Risk Area"
+      coordinates: [] # [x1, y1, x2, y2] format
+    medium_risk:
+      name: "Medium Risk Area"
+      coordinates: []
+
+  # Response actions
+  actions:
+    fire_detected:
+      - log_event
+      - save_image
+      - send_alert
+    smoke_detected:
+      - log_event
+      - monitor_closely
+
+  # Model settings
+  model:
+    default: "yolov8n.pt"
+    custom_fire_model: null # Path to custom fire detection model
+
+  # Output settings
+  save_detections: true
+  output_directory: "wildfire_alerts"
+  log_file: "wildfire_detection.log"
